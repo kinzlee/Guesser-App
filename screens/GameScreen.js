@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
+import React, {useState, useRef} from 'react';
+import {View, Text, StyleSheet, Button, Alert} from 'react-native';
 import Card from '../components/Card';
 import NumberOutput from '../components/NumberOutput';
 
 const randomNumberGenerator = (min, max, except) => {
     min = Math.ceil(min);
     max = Math.floor(max);
-    const randNum = Math.floor(Math.random() *(max - min)) + min
+    const randNum = Math.floor(Math.random() * (max - min)) + min;
     if(randNum === except) {
         return randomNumberGenerator(min, max, except);
     }else {
@@ -15,17 +15,35 @@ const randomNumberGenerator = (min, max, except) => {
 }
 
 const GameScreen = (props) => {
-    const [currentGuess, setCurrentGuess] = useState(
-        
-        
+    const [currentGuess, setCurrentGuess] = useState( 
         randomNumberGenerator(1, 100, props.userChoice));
+    const currentHigh = useRef(100);
+    const currentLow = useRef(1)
+
+const nextGuessHandler = (direction) => {
+    if((direction === 'Lesser' && currentGuess < props.userChoice) ||
+     (direction === 'Greater' &&  currentGuess > props.userChoice)) {
+        Alert.alert('Please Don\'t Cheat', 'Quit trying to scam tunik\s tech',
+         [{text: 'Sorry!', style: 'cancel'}])
+         return;
+    }
+    if(direction === 'Lesser') {
+        currentLow.current = currentGuess;
+    }else {
+        currentHigh.current = currentGuess;
+    }
+    const nextNumber = randomNumberGenerator(currentLow.current, currentHigh.current, currentGuess);
+    setCurrentGuess(nextNumber)
+};
+
+
     return (
         <View style={styles.screen}>
             <Text>Opponents Guess</Text>
             <NumberOutput>{currentGuess}</NumberOutput>
             <Card style={styles.buttonContainer}>
-                <Button title="LOWER" />
-                <Button title="GREATER" />                
+                <Button title="LOWER" onPress={nextGuessHandler.bind(this, 'Lesser')} />
+                <Button title="GREATER" onPress={nextGuessHandler.bind(this, 'Greater')}/>                
             </Card>
         </View>
     );
@@ -38,10 +56,11 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     buttonContainer: {
+        flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent:'space-around',
         marginTop: 20,
-        width: 320,
+        width: 310,
         maxWidth: '80%'
     }
 });

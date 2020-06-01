@@ -4,19 +4,21 @@ import Header from './components/Header';
 import StartGameScreen from './screens/StartGameScreen';
 import GameScreen from './screens/GameScreen';
 
-const [userNumber, setUserNumber] = useState();
-
-const gameScreenHandler = (changeNumber) => {
-  setUserNumber(changeNumber);
-}
-
-let content = <StartGameScreen userNumber={userChoice}/>
-
-if (userNumber) {
-  content = <GameScreen  onStartGame={gameScreenHandler} />
-}
 
 export default function App() {
+
+  const [userNumber, setUserNumber] = useState();
+
+const gameScreenHandler = (selectedNumber) => {
+  setUserNumber(selectedNumber);
+}
+
+let content = <StartGameScreen onStartGame={gameScreenHandler}  />
+
+if (userNumber) {
+  content = <GameScreen userChoice={userNumber} />
+}
+
   return (
     <View style={styles.screen}>
       <Header title="Guess a number" />
