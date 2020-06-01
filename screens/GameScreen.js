@@ -17,8 +17,9 @@ const randomNumberGenerator = (min, max, except) => {
 const GameScreen = (props) => {
     const [currentGuess, setCurrentGuess] = useState( 
         randomNumberGenerator(1, 100, props.userChoice));
-    const currentHigh = useRef(100);
+
     const currentLow = useRef(1);
+    const currentHigh = useRef(100);
 
     const [rounds, setRounds] = useState(0);
 
@@ -32,16 +33,16 @@ const GameScreen = (props) => {
 
 
 const nextGuessHandler = (direction) => {
-    if((direction === 'Lesser' && currentGuess < props.userChoice) ||
-     (direction === 'Greater' &&  currentGuess > props.userChoice)) {
+    if((direction === 'lower' && currentGuess < props.userChoice) ||
+     (direction === 'greater' &&  currentGuess > props.userChoice)) {
         Alert.alert('Please Don\'t Cheat', 'Quit trying to scam tunik\s tech',
          [{text: 'Sorry!', style: 'cancel'}])
          return;
     }
-    if(direction === 'Lesser') {
-        currentLow.current = currentGuess;
-    }else {
+    if(direction === 'lower') {
         currentHigh.current = currentGuess;
+    }else {
+        currentLow.current = currentGuess;
     }
     const nextNumber = randomNumberGenerator(currentLow.current, currentHigh.current, currentGuess);
     setCurrentGuess(nextNumber);
@@ -54,8 +55,8 @@ const nextGuessHandler = (direction) => {
             <Text>Opponents Guess</Text>
             <NumberOutput>{currentGuess}</NumberOutput>
             <Card style={styles.buttonContainer}>
-                <Button title="LOWER" onPress={nextGuessHandler.bind(this, 'Lesser')} />
-                <Button title="GREATER" onPress={nextGuessHandler.bind(this, 'Greater')}/>                
+                <Button title="LOWER" onPress={nextGuessHandler.bind(this, 'lower')} />
+                <Button title="GREATER" onPress={nextGuessHandler.bind(this, 'greater')}/>                
             </Card>
         </View>
     );
