@@ -21,6 +21,16 @@ export default function App() {
   const [guessRound, setGuessRound] = useState(0);
   const [dataLoaded, setDataLoaded] = useState(false);
 
+  if(!dataLoaded) {
+    return (
+      <AppLoading 
+      startAsync={fetchFonts}
+      onFinish={() => {setDataLoaded(true)}}
+      onError={() => {console.log(err)}}
+      />
+    );
+  }
+
   const onStartNewGameHandler = () => {
     setGuessRound(0);
     setUserNumber(null);
