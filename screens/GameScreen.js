@@ -21,7 +21,7 @@ const randomNumberGenerator = (min, max, except) => {
 const renderListItem = (value, numbOfRound) =>  (
     <View key={value} style={styles.listItem}>
         <BodyText>#{numbOfRound}</BodyText>
-        <Text>Tuniks computer guessed {guess}</Text>
+        <BodyText>Tuniks computer guessed {value}</BodyText>
         </View>
              );
 
@@ -38,7 +38,7 @@ const GameScreen = (props) => {
 
     useEffect(() => {
         if(currentGuess == userChoice) {
-            onGameOver(pastGuess);
+            onGameOver(pastGuess.length);
         };
     }, [currentGuess, userChoice, onGameOver]);
 
@@ -76,7 +76,7 @@ const nextGuessHandler = (direction) => {
             </Card>
             <View style={styles.list}>
             <ScrollView>
-                {pastGuess.map((guess, index) => renderListItem(guess, pastGuess - index))}
+                {pastGuess.map((guess, index) => renderListItem(guess, pastGuess.length - index))}
             </ScrollView>
             </View>
         </View>
