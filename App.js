@@ -8,11 +8,11 @@ import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 
 const fetchFonts = () => {
-  Font.loadAsync({
+ return Font.loadAsync({
     'Open-Sans': require('./assets/fonts/OpenSans-Regular.ttf'),
-    'Open-Sans-bold': require('./assets/fonts/OpenSans-Regular.ttf')
-  })
-}
+    'Open-Sans-Bold': require('./assets/fonts/OpenSans-Bold.ttf'),
+  });
+};
 
 
 export default function App() {
@@ -26,7 +26,7 @@ export default function App() {
       <AppLoading 
       startAsync={fetchFonts}
       onFinish={() => {setDataLoaded(true)}}
-      onError={() => {console.log(err)}}
+      onError={(err) => {console.log(err)}}
       />
     );
   }

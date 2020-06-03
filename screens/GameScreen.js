@@ -2,6 +2,7 @@ import React, {useState, useRef, useEffect} from 'react';
 import {View, Text, StyleSheet, Button, Alert} from 'react-native';
 import Card from '../components/Card';
 import NumberOutput from '../components/NumberOutput';
+import defaultStyle from '../constants/DefaultText'
 
 const randomNumberGenerator = (min, max, except) => {
     min = Math.ceil(min);
@@ -52,7 +53,7 @@ const nextGuessHandler = (direction) => {
 
     return (
         <View style={styles.screen}>
-            <Text>Opponents Guess</Text>
+            <Text style={defaultStyle.title}>Opponents Guess</Text>
             <NumberOutput>{currentGuess}</NumberOutput>
             <Card style={styles.buttonContainer}>
                 <Button title="LOWER" onPress={nextGuessHandler.bind(this, 'lower')} />
