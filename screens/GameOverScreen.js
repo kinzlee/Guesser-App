@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Button, Image} from 'react-native';
 import BodyText from '../components/BodyText';
 import TitleText from '../components/TitleText';
 import Colors from '../constants/Colors';
+import MainButton from '../components/MainButton'
 
 const GameOverScreen = ({roundsDone, selectedNumber, onResartGame}) => {
     return (
@@ -13,9 +14,9 @@ const GameOverScreen = ({roundsDone, selectedNumber, onResartGame}) => {
             </View>
             <View style={styles.resultContainer}>
             <BodyText style={styles.resultText}>Tuniks computer went <Text style={styles.highlight}>{roundsDone}</Text> rounds to guess 
-            <Text style={styles.highlight}>{selectedNumber}</Text></BodyText>
+            <Text style={styles.highlight}> {selectedNumber}</Text></BodyText>
             </View>
-            <Button title="New Game" onPress={onResartGame}/>
+            <MainButton onPress={onResartGame}>New Game</MainButton>
 
         </View>
     );
@@ -43,13 +44,15 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     resultText: {
-        textAlign: 'center'
+        textAlign: 'center',
+        fontSize: 20
     },
     resultContainer: {
-        margin: 30
+        marginHorizontal: 30,
+        marginVertical: 15
     },
     highlight: {
-        color: Colors.primary
+        color: Colors.primary,
     }
 });
 

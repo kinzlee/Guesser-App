@@ -1,8 +1,9 @@
 import React, {useState, useRef, useEffect} from 'react';
-import {View, Text, StyleSheet, Button, Alert} from 'react-native';
+import {View, Text, StyleSheet, Alert} from 'react-native';
 import Card from '../components/Card';
 import NumberOutput from '../components/NumberOutput';
-import defaultStyle from '../constants/DefaultText'
+import defaultStyle from '../constants/DefaultText';
+import MainButton from '../components/MainButton';
 
 const randomNumberGenerator = (min, max, except) => {
     min = Math.ceil(min);
@@ -56,8 +57,8 @@ const nextGuessHandler = (direction) => {
             <Text style={defaultStyle.title}>Opponents Guess</Text>
             <NumberOutput>{currentGuess}</NumberOutput>
             <Card style={styles.buttonContainer}>
-                <Button title="LOWER" onPress={nextGuessHandler.bind(this, 'lower')} />
-                <Button title="GREATER" onPress={nextGuessHandler.bind(this, 'greater')}/>                
+                <MainButton onPress={nextGuessHandler.bind(this, 'lower')} >LOWER</MainButton>
+                <MainButton onPress={nextGuessHandler.bind(this, 'greater')}>GREATER</MainButton>                
             </Card>
         </View>
     );
@@ -74,8 +75,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent:'space-around',
         marginTop: 20,
-        width: 310,
-        maxWidth: '80%'
+        width: 400,
+        maxWidth: '90%'
     }
 });
 
