@@ -21,7 +21,7 @@ const randomNumberGenerator = (min, max, except) => {
 const renderListItem = (value, numbOfRound) =>  (
     <View key={value} style={styles.listItem}>
         <BodyText>#{numbOfRound}</BodyText>
-        <BodyText>Tuniks computer guessed {value}</BodyText>
+        <BodyText> computer guessed {value}</BodyText>
         </View>
              );
 
@@ -74,8 +74,8 @@ const nextGuessHandler = (direction) => {
                     <Ionicons name="md-add" size={24} color="white"/>
                 </MainButton>                
             </Card>
-            <View style={styles.list}>
-            <ScrollView>
+            <View style={styles.listContainer}>
+            <ScrollView contentContainerStyle={styles.list}>
                 {pastGuess.map((guess, index) => renderListItem(guess, pastGuess.length - index))}
             </ScrollView>
             </View>
@@ -104,12 +104,18 @@ const styles = StyleSheet.create({
         padding: 15,
         borderWidth: 1,
         flexDirection: 'row',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        width: '75%'
     },
-        list: {
+    listContainer: {
         width: '80%',
-        flex: 1  
-        }
+        flex: 1,
+    },
+    list: {
+        flexGrow: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'center'  
+    }
 });
 
 export default GameScreen
