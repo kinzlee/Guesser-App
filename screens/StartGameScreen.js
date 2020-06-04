@@ -6,7 +6,10 @@ import {View,
     TouchableWithoutFeedback,
     Keyboard,
     Alert,
-    Dimensions} 
+    Dimensions,
+    ScrollView,
+    KeyboardAvoidingView
+} 
 from 'react-native';
 import Card from '../components/Card';
 import Colors from '../constants/Colors';
@@ -55,6 +58,8 @@ const StartGameScreen = (props) => {
     }
 
     return (
+        <ScrollView>
+        <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={30} >
         <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
         <View style={styles.gameScreen}>
             <TitleText style={styles.title}>Start a New Game</TitleText>
@@ -82,7 +87,8 @@ const StartGameScreen = (props) => {
             {outputNumber}
         </View>
         </TouchableWithoutFeedback>
-
+        </KeyboardAvoidingView>
+        </ScrollView>       
     );
 };
 
