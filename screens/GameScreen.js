@@ -1,5 +1,5 @@
 import React, {useState, useRef, useEffect} from 'react';
-import {View, Text, StyleSheet, Alert, ScrollView} from 'react-native';
+import {View, Text, StyleSheet, Alert, ScrollView, Dimensions} from 'react-native';
 import Card from '../components/Card';
 import NumberOutput from '../components/NumberOutput';
 import defaultStyle from '../constants/DefaultText';
@@ -20,7 +20,7 @@ const randomNumberGenerator = (min, max, except) => {
 
 const renderListItem = (value, numbOfRound) =>  (
     <View key={value} style={styles.listItem}>
-        <BodyText>#{numbOfRound}</BodyText>
+        <BodyText>#{numbOfRound} </BodyText>
         <BodyText> computer guessed {value}</BodyText>
         </View>
              );
@@ -61,6 +61,12 @@ const nextGuessHandler = (direction) => {
     setPastGuess(currPastGuess => [nextNumber, ...currPastGuess]);
 };
 
+// let listContainerStyle = styles.listContainer;
+
+// if(Dimensions.get('window').width < 350 ) {
+//     listContainerStyle = styles.listContainerBig;
+// }
+
 
     return (
         <View style={styles.screen}>
@@ -93,7 +99,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent:'space-around',
-        marginTop: 20,
+        marginTop: Dimensions.get('window').height > 600 ? 20 : 5,
         width: 400,
         maxWidth: '90%'
     },
@@ -108,8 +114,12 @@ const styles = StyleSheet.create({
         width: '75%'
     },
     listContainer: {
-        width: '80%',
+        width: Dimensions.get('window').width > 350 ? '70%' : '80%',
         flex: 1,
+    },
+    listContainerBig: {
+        flex: 1,
+        width: '80%'
     },
     list: {
         flexGrow: 1,

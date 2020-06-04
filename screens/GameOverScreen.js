@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, Image} from 'react-native';
+import { View, Text, StyleSheet, Button, Image, Dimensions, ScrollView} from 'react-native';
 import BodyText from '../components/BodyText';
 import TitleText from '../components/TitleText';
 import Colors from '../constants/Colors';
@@ -7,6 +7,7 @@ import MainButton from '../components/MainButton'
 
 const GameOverScreen = ({roundsDone, selectedNumber, onResartGame}) => {
     return (
+        <ScrollView>
         <View style={styles.screen}>
             <TitleText>The Game is Over!</TitleText>
             <View style={styles.imageContainer}>
@@ -19,6 +20,7 @@ const GameOverScreen = ({roundsDone, selectedNumber, onResartGame}) => {
             <MainButton onPress={onResartGame}>New Game</MainButton>
 
         </View>
+        </ScrollView>
     );
 };
 
@@ -29,13 +31,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     imageContainer: {
-        width: 200,
-        height: 200,
-        borderRadius: 100,
+        width: Dimensions.get('window').width * 0.7,
+        height: Dimensions.get('window').height * 0.7,
+        borderRadius: Dimensions.get('window').width * 0.35,
         borderWidth: 3,
         borderColor:'black',
         overflow: 'hidden',
-        marginVertical: 30,
+        marginVertical: Dimensions.get('window').height / 20,
         justifyContent: 'center'
     },
     image: {
@@ -45,11 +47,11 @@ const styles = StyleSheet.create({
     },
     resultText: {
         textAlign: 'center',
-        fontSize: 20
+        fontSize: Dimensions.get('window').height < 400 ? 16 : 30
     },
     resultContainer: {
         marginHorizontal: 30,
-        marginVertical: 15
+        marginVertical: Dimensions.get('window').height / 60
     },
     highlight: {
         color: Colors.primary,
