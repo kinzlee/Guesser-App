@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View,
     Text,
     StyleSheet,
@@ -23,6 +23,18 @@ const StartGameScreen = (props) => {
     const [enteredValue, setEnteredValue] = useState('');
     const [conFirmedState, setConfirmedState] =  useState(false);
     const [enteredNumber, setEnteredNumber] = useState();
+    const [buttonWidth, setButtonWidth] = useState(Dimensions.get('window').width/4);
+
+    useEffect(() => {
+        const updateLayout = () => {
+            setButtonWidth(Dimensions.get('window').width/4)
+        }
+    
+        Dimensions.addEventListener("change", updateLayout);
+        return () => {
+            Dimensions.removeEventListener("change", updateLayout)
+        }
+    })
 
     const numericInputHandler = (input) => {
         setEnteredValue(input.replace(/[^0-9]/g, ''));
@@ -76,10 +88,10 @@ const StartGameScreen = (props) => {
                 onChangeText={numericInputHandler}
                 />
                     <View style={styles.buttonContainer}>
-                        <View style={styles.button}>
+                        <View style={{width: buttonWidth}}>
                         <Button title="RESET" onPress={btnResetHandler} color={Colors.primary} />
                         </View>
-                        <View style={styles.button}>
+                        <View style={{width: buttonWidth}}>
                         <Button title="CONFIRM" onPress={btnConfirmHandler} color={Colors.secondary} />
                         </View>
                     </View>
