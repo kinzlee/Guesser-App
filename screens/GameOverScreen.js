@@ -28,12 +28,13 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        paddingVertical: 10
     },
     imageContainer: {
         width: Dimensions.get('window').width * 0.7,
-        height: Dimensions.get('window').height * 0.7,
-        borderRadius: Dimensions.get('window').width * 0.35,
+        height: Dimensions.get('window').width * 0.7,
+        borderRadius: (Dimensions.get('window').width * 0.7) /2,
         borderWidth: 3,
         borderColor:'black',
         overflow: 'hidden',
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     image: {
-        width: '120%',
+        width: '100%',
         height: '100%',
         alignItems: 'center'
     },
