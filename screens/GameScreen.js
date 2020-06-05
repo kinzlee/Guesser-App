@@ -33,8 +33,26 @@ const GameScreen = (props) => {
     const currentHigh = useRef(100);
 
     const [pastGuess, setPastGuess] = useState([initialGuess]);
+    const  [availableDeviceWidth, setAvailableDeviceWidth] = useState(
+        Dimensions.get('window').width
+    );
+    const [availableDeviceHeight, setAvailableDeviceHeight] = useState(
+        Dimensions.get('window').height
+    );
 
     const { userChoice, onGameOver} = props;
+
+    useEffect(() => {
+        const updateLayout = () => {
+            setAvailableDeviceWidth(Dimensions.get('window').width);
+            setAvailableDeviceHeight(Dimensions.get('window').height);
+        };
+        Dimensions.addEventListener('change', updateLayout);
+
+        return () => {
+            Dimensions.removeEventListener('change', updateLayout);
+        }
+    });
 
     useEffect(() => {
         if(currentGuess == userChoice) {
@@ -61,12 +79,33 @@ const nextGuessHandler = (direction) => {
     setPastGuess(currPastGuess => [nextNumber, ...currPastGuess]);
 };
 
-// let listContainerStyle = styles.listContainer;
+let listContainerStyle = styles.listContainer;
 
-// if(Dimensions.get('window').width < 350 ) {
-//     listContainerStyle = styles.listContainerBig;
-// }
+if(availableDeviceWidth < 350 ) {
+    listContainerStyle = styles.listContainerBig;
+}
 
+if(availableDeviceWidth < 500) {
+    return (
+        <View style={styles.screen}>
+            <Text style={defaultStyle.title}>Opponents Guess</Text>
+            <NumberOutput>{currentGuess}</NumberOutput>
+            <View style={styles.control}>
+                <MainButton onPress={nextGuessHandler.bind(this, 'lower')} >
+                    <Ionicons name="md-remove" size={24} color="white" /> 
+                </MainButton>
+                <MainButton onPress={nextGuessHandler.bind(this, 'greater')}>
+                    <Ionicons name="md-add" size={24} color="white"/>
+                </MainButton>                
+                </View>
+            <View style={listContainerStyle}>
+            <ScrollView contentContainerStyle={styles.list}>
+                {pastGuess.map((guess, index) => renderListItem(guess, pastGuess.length - index))}
+            </ScrollView>
+            </View>
+        </View>
+    );
+}
 
     return (
         <View style={styles.screen}>
@@ -116,6 +155,12 @@ const styles = StyleSheet.create({
     listContainer: {
         width: Dimensions.get('window').width > 350 ? '70%' : '80%',
         flex: 1,
+    },
+    control: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        width: '80%',
+        alignItems: 'center'
     },
     listContainerBig: {
         flex: 1,
