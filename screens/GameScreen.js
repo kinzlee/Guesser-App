@@ -85,7 +85,7 @@ if(availableDeviceWidth < 350 ) {
     listContainerStyle = styles.listContainerBig;
 }
 
-if(availableDeviceWidth < 500) {
+if(availableDeviceWidth < 400) {
     return (
         <View style={styles.screen}>
             <Text style={defaultStyle.title}>Opponents Guess</Text>
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     },
     control: {
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'space-around',
         width: '80%',
         alignItems: 'center'
     },
