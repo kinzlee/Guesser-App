@@ -85,7 +85,7 @@ if(availableDeviceWidth < 350 ) {
     listContainerStyle = styles.listContainerBig;
 }
 
-if(availableDeviceWidth < 400) {
+if(availableDeviceHeight < 400) {
     return (
         <View style={styles.screen}>
             <Text style={defaultStyle.title}>Opponents Guess</Text>
